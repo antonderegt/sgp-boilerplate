@@ -1,5 +1,6 @@
 /pgadmin
 /Postgres
+/svelte/node_modules
 /svelte/__sapper__
 /svelte/src/node_modules
 
