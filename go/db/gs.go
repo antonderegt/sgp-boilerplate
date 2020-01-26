@@ -19,7 +19,7 @@ type Credentials struct {
 }
 
 // var store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
-var store = sessions.NewCookieStore([]byte("secret"))
+var store = sessions.NewCookieStore([]byte("SESSION_KEY"))
 
 func Login(w http.ResponseWriter, r *http.Request) {
     (w).Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")

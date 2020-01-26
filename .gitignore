@@ -1,3 +1,6 @@
 /pgadmin
 /Postgres
+/svelte/__sapper__
+
 .DS_Store
+.sessions

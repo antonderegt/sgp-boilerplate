@@ -37,12 +37,28 @@ async function login() {
 
     username = password = ""
 }
+
+async function logout() {
+	const res = await fetch(`http://localhost:8080/api/logout`);
+	
+	if (res.ok) {
+        console.log('res.ok: ', res.statusText);
+		window.pushToast(`Logged out successfully!`)
+		session.set({ user: false })
+	} else {
+		console.log('res not okay: ', res.statusText);
+		window.pushToast(res.statusText)
+	}
+}
 </script>
 
 <style>
 /* form styling */
 </style>
 
+{#if $session.user}
+<button on:click|preventDefault={logout}>Logout</button>
+{:else}
 <form action="">
 <label for="username">Username: </label>
 <input type="text" placeholder={username} bind:value={username}>
@@ -50,5 +66,6 @@ async function login() {
 <input type="password" bind:value={password}>
 <button on:click|preventDefault={login}>Login</button>
 </form>
+{/if}
 
 <Toast />
