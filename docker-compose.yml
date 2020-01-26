@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  svelte:
+    build: svelte
+    container_name: svelte
+    volumes:
+      - ./svelte:/app
+    ports: 
+      - "3000:3000"
+      - "10000:10000"
+  go:
+    image: cosmtrek/air
+    container_name: go
+    working_dir: "/go/src/app"
+    volumes:
+      - ./go:/go/src/app
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - ./Postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+       - ./pgadmin:/root/.pgadmin
+    ports:
+      - "8081:80"
+    logging:
+      driver: none
+    restart: unless-stopped
